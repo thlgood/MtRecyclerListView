@@ -12,13 +12,19 @@ SOURCES += \
     listitem.cpp \
     main.cpp \
     dialog.cpp \
-    src/mtrecyclerlistview.cpp
+    src/mtrecyclerlistview.cpp \
+    src/mtrecyclermulticolumnlistview.cpp \
+    src/mtrecyclermulticolumnlistviewadapter.cpp \
+    src/multicolumnlistheader.cpp
 
 HEADERS += \
     dialog.h \
     listitem.h \
     src/mtrecyclerlistview.h \
-    src/mtrecyclerlistviewadapter.h
+    src/mtrecyclerlistviewadapter.h \
+    src/mtrecyclermulticolumnlistview.h \
+    src/mtrecyclermulticolumnlistviewadapter.h \
+    src/multicolumnlistheader.h
 
 FORMS += \
     dialog.ui \

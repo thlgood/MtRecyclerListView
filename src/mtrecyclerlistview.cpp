@@ -34,9 +34,6 @@ void MtRecyclerListView::setAdapter(MtRecyclerListViewAdapter *adapter)
     m_layoutOrient = m_listAdapter->getOrientation();
     m_sb = new QScrollBar(m_layoutOrient, this);
     connect(m_sb, &QScrollBar::valueChanged, this, &MtRecyclerListView::onScrollBarChanged);
-    QMargins marginRc = adapter->margin();
-    m_leadSpace = m_layoutOrient == Qt::Orientation::Horizontal ? marginRc.left() : marginRc.top();
-    m_tailSpace =  m_layoutOrient == Qt::Orientation::Horizontal ? marginRc.right() : marginRc.bottom();
 
     buildListItems();
 }
@@ -96,7 +93,7 @@ void MtRecyclerListView::makeItemVisible(int index)
     }
     else if (index >= cacheLastIndex) //把第index个元素滚到可见区域的末尾
     {
-        int newScrollPos = m_leadSpace + (index + 1) * (m_itemLen + m_itemSpace) - m_itemSpace - getListGeometryLength();
+        int newScrollPos = m_layoutLeadSpace + (index + 1) * (m_itemLen + m_itemSpace) - m_itemSpace - getListGeometryLength();
         scrollTo(newScrollPos);
     }
 }
@@ -300,7 +297,7 @@ void MtRecyclerListView::layoutListItems()
     for (int i = 0; i < m_listCachedItems.size(); i++)
     {
         auto item = m_listCachedItems[i];
-        int offset = m_leadSpace + item->index * (m_itemLen + m_itemSpace) - m_scrollPos;
+        int offset = m_layoutLeadSpace + item->index * (m_itemLen + m_itemSpace) - m_scrollPos;
         QWidget* widget = item->widget;
         if (m_layoutOrient == Qt::Orientation::Horizontal)
         {

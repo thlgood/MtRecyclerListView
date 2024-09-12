@@ -1,16 +1,28 @@
+
 #ifndef DIALOG_H
 #define DIALOG_H
 
 #include <QDialog>
 #include <QList>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QCheckBox>
+#include <QSpacerItem>
 #include "src/mtrecyclerlistviewadapter.h"
 #include "src/mtrecyclerlistview.h"
+
+#include "src/mtrecyclermulticolumnlistview.h"
+#include "src/mtrecyclermulticolumnlistviewadapter.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class Dialog;
 }
 QT_END_NAMESPACE
+
+inline QString W2Q(const wchar_t* s) {
+    return QString::fromStdWString(s);
+}
 
 
 class Adapter: public QObject, public MtRecyclerListViewAdapter
@@ -46,6 +58,20 @@ public:
 
 private:
     QList<QString> m_items;
+};
+
+class MultiColumnListAdapter: public MtRecyclerMultiColumnListViewAdapter
+{
+public:
+    int GetHeaderHeight() override;
+    QStringList getHeader() override;
+
+    QWidget* createCeil(int row, int column, QWidget* parent) override;
+    void updateCeil(QWidget* item, int row, int col) override;
+
+    int getRowHeight() override;
+    int getRowCount() override;
+    int getColumnCount() override;
 };
 
 

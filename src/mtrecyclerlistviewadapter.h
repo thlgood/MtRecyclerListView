@@ -12,42 +12,42 @@ public:
     virtual ~MtRecyclerListViewAdapter() = default;
 
     /**
-     * æ°´å¹³æ–¹å‘è¿˜æ˜¯å‚ç›´æ–¹å‘çš„åˆ—è¡¨
+     * Ë®Æ½·½Ïò»¹ÊÇ´¹Ö±·½ÏòµÄÁĞ±í
      */
     virtual Qt::Orientation getOrientation() = 0;
 
     /**
-     * è¿”å›åˆ—è¡¨å…ƒç´ çš„å®½ä¸é«˜ï¼Œæ³¨æ„ï¼šè¿™é‡Œçš„å®½é«˜ä¸åŒ…å«å…ƒç´ é—´çš„é—´è·
+     * ·µ»ØÁĞ±íÔªËØµÄ¿íÓë¸ß£¬×¢Òâ£ºÕâÀïµÄ¿í¸ß²»°üº¬ÔªËØ¼äµÄ¼ä¾à
      */
     virtual QSize getItemSize() = 0;
 
     /**
-     * å…ƒç´ é—´çš„é—´è·
+     * ÔªËØ¼äµÄ¼ä¾à
      */
     virtual int getItemSpace() = 0;
 
     /**
-     * åˆ—è¡¨å†…left/top/right/bottomçš„ç•™ç™½
+     * ÁĞ±íÄÚleft/top/right/bottomµÄÁô°×
      */
     virtual QMargins margin() = 0;
 
     /**
-     * è·å–åˆ—è¡¨å…ƒç´ çš„ä¸ªæ•°
+     * »ñÈ¡ÁĞ±íÔªËØµÄ¸öÊı
      */
     virtual int getCount() = 0;
 
     /**
-     * åˆ›å»ºåˆ—è¡¨çš„å•ä¸ªå…ƒç´ ï¼Œæ³¨æ„ï¼šæ¯ä¸ªå…ƒç´ éƒ½éœ€è¦ä½¿ç”¨ä¼ å…¥çš„parentä½œä¸ºparent
+     * ´´½¨ÁĞ±íµÄµ¥¸öÔªËØ£¬×¢Òâ£ºÃ¿¸öÔªËØ¶¼ĞèÒªÊ¹ÓÃ´«ÈëµÄparent×÷Îªparent
      */
     virtual QWidget* createListItem(int index, MtRecyclerListView* parent) = 0;
 
     /**
-     * æ›´æ–°æŸä¸ªå…ƒç´ 
+     * ¸üĞÂÄ³¸öÔªËØ
      */
     virtual void updateItem(QWidget* item, int index) = 0;
 
     /**
-     * scrollBarWidth æ»šåŠ¨æ¡å®½åº¦
+     * scrollBarWidth ¹ö¶¯Ìõ¿í¶È
      */
     virtual int scrollBarWidth()
     {
@@ -55,7 +55,7 @@ public:
     }
 
     /**
-     * scrollBar å››å‘¨ç•™çš„ç©ºé—´
+     * scrollBar ËÄÖÜÁôµÄ¿Õ¼ä
      */
     virtual QMargins scrollBarMargin()
     {

@@ -15,37 +15,37 @@ public:
     ~MtRecyclerListView();
 
     /*
-     * è®¾ç½®åˆ—è¡¨çš„adapter
+     * ÉèÖÃÁĞ±íµÄadapter
      */
     void setAdapter(MtRecyclerListViewAdapter* adapter);
 
     /*
-     * æ›´æ–°æŸä¸ªå…ƒç´ 
+     * ¸üĞÂÄ³¸öÔªËØ
      */
     void updateItem(int index);
 
     /*
-     * æ›´æ–°æ•´ä¸ªåˆ—è¡¨ã€‚
+     * ¸üĞÂÕû¸öÁĞ±í¡£
      */
     void updateList();
 
     /*
-     * è¿”å›itemçš„ç´¢å¼•å·ï¼Œæ³¨æ„ï¼šå¦‚æœitemä¸åœ¨åˆ—è¡¨é‡Œæˆ–è€…ä¸åœ¨å¯è§†èŒƒå›´å†…ï¼Œè¯¥å‡½æ•°å°†è¿”å›-1
+     * ·µ»ØitemµÄË÷ÒıºÅ£¬×¢Òâ£ºÈç¹ûitem²»ÔÚÁĞ±íÀï»òÕß²»ÔÚ¿ÉÊÓ·¶Î§ÄÚ£¬¸Ãº¯Êı½«·µ»Ø-1
      */
     int getItemIndex(QWidget* item);
 
     /*
-     * å°†ç´¢å¼•ä¸ºindexçš„itemæ»šåŠ¨åˆ°å¯è§åŒºåŸŸ
+     * ½«Ë÷ÒıÎªindexµÄitem¹ö¶¯µ½¿É¼ûÇøÓò
      */
     void makeItemVisible(int index);
 
     /*
-     * æ»šåŠ¨åˆ°æŸä¸ªä½ç½®ï¼Œpos >= 0ï¼Œå¦‚æœposå€¼ä¸æ­£ç¡®ï¼Œè¯¥å‡½æ•°ä¼šä¿®æ­£poså€¼
+     * ¹ö¶¯µ½Ä³¸öÎ»ÖÃ£¬pos >= 0£¬Èç¹ûposÖµ²»ÕıÈ·£¬¸Ãº¯Êı»áĞŞÕıposÖµ
      */
     void scrollTo(int pos);
 
     /*
-     * å…ƒç´ æ˜¯å¦å¤šåˆ°éœ€è¦æ»šåŠ¨
+     * ÔªËØÊÇ·ñ¶àµ½ĞèÒª¹ö¶¯
      */
     bool isBigEnoughForScroll();
 
@@ -74,16 +74,13 @@ protected:
 protected:
     Qt::Orientation m_layoutOrient = Qt::Orientation::Horizontal;
 
-    int m_leadSpace = 0;
-    int m_tailSpace = 0;
-
     QList<ItemData*> m_listCachedItems;
 
     int m_scrollPos = 0;
 
     int m_layoutLeadSpace = 0;
     int m_layoutTailSpace = 0;
-    int m_contentLength = 0; // æ•´ä¸ªæ»šåŠ¨åŒºåŸŸé€»è¾‘é•¿åº¦
+    int m_contentLength = 0; // Õû¸ö¹ö¶¯ÇøÓòÂß¼­³¤¶È
     int m_itemCount = 0;
     int m_itemLen = 0;
     int m_itemSpace = 0;
