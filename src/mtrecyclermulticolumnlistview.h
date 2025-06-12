@@ -35,6 +35,9 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
 
 public slots:
     void onVScrollBarChanged(int val);
@@ -58,6 +61,7 @@ private:
     int calcVScrollbarPageStep();
     int calcHScrollBarMax(bool isVsbShow);
     int calcHScrollbarPageStep(bool isVsbShow);
+    int calcIndexOfPoint(QPoint pt);
 
 private:
     int m_contentHeight = 0; // 整个滚动区域逻辑长度
@@ -83,8 +87,19 @@ private:
     int m_vscrollPos = 0;
     int m_hscrollPos = 0;
 
+    // 是否显示网格线
     bool m_showGride = false;
+
+    // 需要调用buildListItems的标记
     bool m_markAsDirty = false;
+
+    // 当前鼠标放在m_listCachedRows[m_indexOfHover]的元素上
+    int m_indexOfHover = -1;
+    // 是否hover
+    bool m_isHover = false;
+
+    // 鼠标位置，之后m_isHover为true时该字段才有意义
+    QPoint m_mousePoint;
 };
 
 #endif //MT_RECYCLER_MULTI_COLUMN_LIST_VIEW_H_

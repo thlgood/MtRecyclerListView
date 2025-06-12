@@ -11,77 +11,77 @@ class MtRecyclerMultiColumnListViewAdapter
 {
 public:
     /**
-     * Í·²¿µÄ¸ß¶È£¬Èç¹û¸ß¶ÈÎª0Ôò±íÊ¾²»Õ¹Ê¾Í·²¿
+     * å¤´éƒ¨çš„é«˜åº¦ï¼Œå¦‚æœé«˜åº¦ä¸º0åˆ™è¡¨ç¤ºä¸å±•ç¤ºå¤´éƒ¨
      */
     virtual int GetHeaderHeight() = 0;
 
     /**
-     * »ñÈ¡Í·²¿×Ö¶Î£¬ÔªËØ¸öÊı±ØĞëµÈÓÚgetColumnCount£¬Èç¹û²»ÏëÕ¹Ê¾Í·²¿£¬ÈÃGetHeaderHeight·µ»Ø0
+     * è·å–å¤´éƒ¨å­—æ®µï¼Œå…ƒç´ ä¸ªæ•°å¿…é¡»ç­‰äºgetColumnCountï¼Œå¦‚æœä¸æƒ³å±•ç¤ºå¤´éƒ¨ï¼Œè®©GetHeaderHeightè¿”å›0
      */
     virtual QStringList getHeader() = 0;
 
     /**
-     * ´´½¨µ¥¸ö¸ñ×Ó
+     * åˆ›å»ºå•ä¸ªæ ¼å­
      */
     virtual QWidget* createCeil(int row, int column, QWidget* parent) = 0;
 
     /**
-     * ´´½¨ĞĞ
+     * åˆ›å»ºè¡Œ
      */
     virtual void createRow(int row, QList<QWidget*>& columns);
 
     /**
-     * ·µ»ØÁĞ±íÔªËØµÄ¸ß
+     * è¿”å›åˆ—è¡¨å…ƒç´ çš„é«˜
      */
     virtual int getRowHeight() = 0;
 
     /**
-     * ÁĞ±íµ×²¿µÄÁô°×
+     * åˆ—è¡¨åº•éƒ¨çš„ç•™ç™½
      */
     virtual int bottomSpace();
 
     /**
-     * »ñÈ¡ÁĞ±íÔªËØµÄĞĞÊı
+     * è·å–åˆ—è¡¨å…ƒç´ çš„è¡Œæ•°
      */
     virtual int getRowCount() = 0;
 
     /**
-     * »ñÈ¡ÁĞ±íÔªËØµÄÁĞÊ÷
+     * è·å–åˆ—è¡¨å…ƒç´ çš„åˆ—æ ‘
      */
     virtual int getColumnCount() = 0;
 
     /**
-     * ¸üĞÂÄ³¸öÔªËØ
+     * æ›´æ–°æŸä¸ªå…ƒç´ 
      */
     virtual void updateCeil(QWidget* item, int row, int col) = 0;
 
     /**
-     * ¸üĞĞÒ»ÕûĞĞ
+     * æ›´è¡Œä¸€æ•´è¡Œ
      */
     virtual void updateRow(int row, QList<QWidget*>& columns, int columnCount);
 
     /**
-     * scrollBarWidth ¹ö¶¯Ìõ¿í¶È
+     * scrollBarWidth æ»šåŠ¨æ¡å®½åº¦
      */
     virtual int scrollBarWidth();
 
     /**
-     * Ã¿¸öÔªËØµÄmargin
+     * æ¯ä¸ªå…ƒç´ çš„margin
      */
     virtual QMargins getCeilMargins();
 
     /**
-     * Í·²¿Ã¿¸öÔªËØµÄmargin£¬Ä¿Ç°Ö»ÓĞleftÉúĞ§
+     * å¤´éƒ¨æ¯ä¸ªå…ƒç´ çš„marginï¼Œç›®å‰åªæœ‰leftç”Ÿæ•ˆ
      */
     virtual QMargins getHeaderMargins();
 
     /**
-     * scrollBar ËÄÖÜÁôµÄ¿Õ¼ä
+     * scrollBar å››å‘¨ç•™çš„ç©ºé—´
      */
     virtual QMargins scrollBarMargin();
 
     /**
-     * ÉèÖÃÁĞ±í
+     * è®¾ç½®åˆ—è¡¨
      */
     void setListView(MtRecyclerMultiColumnListView* lv);
 

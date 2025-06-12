@@ -78,6 +78,7 @@ void MultiColumnListHeader::setColumnWidth(int column, int width, bool update)
         repaint();
         emit onWidthChanged();
     }
+    resize(getTotalWidth(), height());
 }
 
 int MultiColumnListHeader::getColumnWidth(int column) {

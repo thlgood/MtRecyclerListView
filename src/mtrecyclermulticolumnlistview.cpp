@@ -1,7 +1,6 @@
 #include "mtrecyclermulticolumnlistview.h"
 #include "mtrecyclermulticolumnlistviewadapter.h"
 #include "multicolumnlistheader.h"
-#include <QMap>
 
 MtRecyclerMultiColumnListView::MtRecyclerMultiColumnListView(QWidget *parent):QWidget(parent)
 {
@@ -15,6 +14,8 @@ MtRecyclerMultiColumnListView::MtRecyclerMultiColumnListView(QWidget *parent):QW
     connect(m_header, &MultiColumnListHeader::onWidthChanged, this, &MtRecyclerMultiColumnListView::notifyUpdate);
 
     connect(this, &MtRecyclerMultiColumnListView::sigUpdate, this, &MtRecyclerMultiColumnListView::update, Qt::QueuedConnection);
+
+    setAttribute(Qt::WA_MouseTracking);
 }
 
 void MtRecyclerMultiColumnListView::setAdapter(MtRecyclerMultiColumnListViewAdapter *adapter)
@@ -255,6 +256,11 @@ void MtRecyclerMultiColumnListView::layoutListItems()
         m_hsb->raise();
     }
 
+    if (m_isHover)
+    {
+        m_indexOfHover = calcIndexOfPoint(m_mousePoint);
+    }
+
     repaint();
 }
 
@@ -267,6 +273,26 @@ void MtRecyclerMultiColumnListView::paintEvent(QPaintEvent *event)
 
     QBrush brush(Qt::white);
     painter.fillRect(0, 0, width(), height(), brush);
+
+    if (m_indexOfHover != -1)
+    {
+        RowData* rd = m_listCachedRows[m_indexOfHover];
+        if (!rd->widgets.isEmpty())
+        {
+            QPoint ptA = rd->widgets.front()->geometry().topLeft();
+            QPoint ptB = rd->widgets.back()->geometry().bottomRight();
+
+            ptA.setX(ptA.x() - m_ceilMargin.left());
+            ptA.setY(ptA.y() - m_ceilMargin.top());
+
+            ptB.setX(ptB.x() + m_ceilMargin.right());
+            ptB.setY(ptB.y() + m_ceilMargin.bottom());
+
+            QRect rc(ptA, ptB);
+            QBrush brush(QColor(0xFFF2FBFF));
+            painter.fillRect(rc, brush);
+        }
+    }
 
     if (m_showGride)
     {
@@ -324,6 +350,38 @@ void MtRecyclerMultiColumnListView::wheelEvent(QWheelEvent *event) {
     delta = round((float)delta / (float)m_rowHeight) * m_rowHeight;
 
     scrollTo(m_vscrollPos - delta, Qt::Orientation::Vertical);
+}
+
+void MtRecyclerMultiColumnListView::mouseMoveEvent(QMouseEvent *event)
+{
+    QWidget::mouseMoveEvent(event);
+
+    m_mousePoint = event->pos();
+    int indexOfHover = calcIndexOfPoint(event->pos());
+
+    if (indexOfHover != m_indexOfHover)
+    {
+        m_indexOfHover = indexOfHover;
+        repaint();
+    }
+}
+
+void MtRecyclerMultiColumnListView::enterEvent(QEvent *event)
+{
+    QWidget::enterEvent(event);
+    m_isHover = true;
+}
+
+void MtRecyclerMultiColumnListView::leaveEvent(QEvent *event)
+{
+    QWidget::leaveEvent(event);
+
+    m_isHover = false;
+    if (m_indexOfHover != -1)
+    {
+        m_indexOfHover = -1;
+        repaint();
+    }
 }
 
 void MtRecyclerMultiColumnListView::scrollTo(int pos, Qt::Orientation ori)
@@ -462,4 +520,22 @@ int MtRecyclerMultiColumnListView::calcHScrollbarPageStep(bool isVsbShow)
         visualWidth -= m_listAdapter->scrollBarWidth() + m.left() + m.right();
     }
     return visualWidth;
+}
+
+int MtRecyclerMultiColumnListView::calcIndexOfPoint(QPoint pt)
+{
+    if (m_header->geometry().contains(pt) || m_listCachedRows.isEmpty())
+    {
+        return -1;
+    }
+
+    auto yStart = m_listCachedRows.front()->widgets.front()->geometry().top() - m_ceilMargin.top();
+    auto yEnd = m_listCachedRows.back()->widgets.front()->geometry().bottom() + m_ceilMargin.bottom();
+    if (pt.y() < yStart || pt.y() >= yEnd)
+        return - 1;
+
+    int index = (pt.y() - yStart) / m_rowHeight;
+    if (m_listCachedRows.size() <= index)
+        return - 1;
+    return index;
 }
